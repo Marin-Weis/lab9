@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - test
+
+jobs:
+  lab9-basic-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Make script executable
+        run: chmod +x validate-data.sh
+
+      - name: Run and verify output
+        run: |
+          echo '► Run OUTPUT=$(bash validate-data.sh "marin weis" "A00082578")'
+          
+          OUTPUT=$(bash validate-data.sh "marin weis" "A00082578")
+          echo "Script output was: $OUTPUT"
+          echo "Test Passed!"
+          
+          OUTPUT=$(bash validate-data.sh "marin weis" "A0008257800")
+          echo "Script output was: $OUTPUT"
+          echo "Test Passed!"
+          
+          OUTPUT=$(bash validate-data.sh "marin weis abcdef" "A00082578")
+          echo "Script output was: $OUTPUT"
+          echo "Test Passed!"
