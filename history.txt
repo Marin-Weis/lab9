@@ -1,0 +1,28 @@
+mkdir lab9
+cd lab9
+git init
+gh repo create lab9 --public --source=. --remote=origin
+gh label create "EPIC"
+gh issue create --title "do lab9" --label "EPIC"
+gh issue create --title "create validate-data script" --label "enhancement" --assignee "@me"
+nano validate-data.sh
+chmod +x validate-data.sh
+bash validate-data.sh "marin weis" "A00082578"
+bash validate-data.sh "marin weis" "A0008257800"
+bash validate-data.sh "marin weis abcdef" "A00082578"
+gh issue create --title "create yaml test script" --label "enhancement" --assignee "@me"
+mkdir -p .github/workflows
+nano .github/workflows/basictests.yml
+git add validate-data.sh .github/
+git commit -m "Initial commit: script and action"
+git branch -M main
+git push -u origin main
+gh issue create --title "create project view" --label "enhancement" --assignee "@me"
+gh issue create --title "create test branch" --label "enhancement" --assignee "@me"
+git checkout -b test
+sed -i 's/-le 15/-le 20/g' validate-data.sh
+git add validate-data.sh
+git commit -m "Update length to 20 chars"
+git push -u origin test
+history > history.txt
+nano history.txt
